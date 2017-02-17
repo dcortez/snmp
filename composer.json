@@ -1,5 +1,5 @@
 {
-    "name": "nelisys/snmp",
+    "name": "jorgelima/snmp",
     "description": "PHP Class for net-snmp commands",
     "type": "library",
     "license": "MIT",
@@ -7,12 +7,16 @@
         {
             "name": "nelisys",
             "email": "nelisys@users.noreply.github.com"
+        },
+        {
+            "name": "Jorge Lima",
+            "email": "jorge@creativeconcept.com.br"
         }
     ],
     "require": {},
     "autoload": {
         "psr-4": {
-            "Nelisys\\": "src/"
+            "php-snmp\\": "src/"
         }
     }
 }

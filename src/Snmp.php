@@ -1,14 +1,15 @@
 <?php
 /**
- * nelisys/snmp
+ * jorgelima/snmp
  *
  * @author    nelisys <nelisys@users.noreply.github.com>
+ * @author    Jorge Lima <jorge@creativeconcept.com.br>
  * @copyright 2015 nelisys
  * @license   https://opensource.org/licenses/MIT
  * @link      https://github.com/nelisys/snmp
  */
 
-namespace Nelisys;
+namespace Jorgelima;
 
 /**
  * PHP Class for net-snmp commands
@@ -48,6 +49,11 @@ class Snmp {
      */
     protected $snmpget_max_oids = 10;
 
+    /**
+     * Maximum oids to snmpset in the same time
+     * */
+    protected $snmpset_max_oids = 10;
+
     /*
      * Initial Variables
      */
@@ -79,6 +85,29 @@ class Snmp {
             exec("$snmpget $get_oids 2>&1", $exec_output, $exec_return);
         }
 
+        return $this->output($exec_output, $exec_return);
+    }
+
+    /*
+     * exec snmpset
+     */
+    public function set($oids){
+        $array_oids = (Array) $oids;
+
+        // build snmpget command
+        $snmpset = 'snmpset '
+                     . ' -v ' . escapeshellarg($this->version)
+                     . ' -O ' . escapeshellarg($this->output_options)
+                     . ' -c ' . escapeshellarg($this->community)
+                     . ' '.escapeshellarg($this->hostname);
+
+        // chunk to limit max oids to exec snmpget at the same time
+        $chunks = array_chunk($array_oids, $this->snmpset_max_oids);
+
+        foreach ($chunks as $chunk) {
+            $get_oids = implode(' ', $chunk);
+            exec("$snmpset $get_oids 2>&1", $exec_output, $exec_return);
+        }
         return $this->output($exec_output, $exec_return);
     }
 
@@ -133,14 +162,14 @@ class Snmp {
      *
      *  2:  Error in packet, noSuchName, Failed Object
      *      Note: If get many oids, some oid value may return ok
-     * 
+     *
      *      Examples:
      *      $ get .1.3.6.1.2.1.1.3.0 .1.3.6.1.2.1.1.99
      *      Error in packet
      *      Reason: (noSuchName) There is no such variable name in this MIB.
      *      Failed object: .1.3.6.1.2.1.1.99
      *      .1.3.6.1.2.1.1.3.0 5040854
-     * 
+     *
      * 1:   SNMP Timeout: No Response from ...
      * 127: command not found
      *
