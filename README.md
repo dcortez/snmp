@@ -16,7 +16,7 @@ Installation with Composer
 --------------------------
 
 ```shell
-$ composer require nelisys/snmp
+$ composer require jorgelima/snmp
 ```
 
 Usage
@@ -28,7 +28,7 @@ Example php file.
 // test-snmp.php
 require 'vendor/autoload.php';
 
-use Nelisys\Snmp;
+use Jorgelima\Snmp;
 
 $snmp = new Snmp('127.0.0.1', 'public');
 print_r($snmp->get('.1.3.6.1.2.1.1.1.0'));
