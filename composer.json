@@ -16,7 +16,7 @@
     "require": {},
     "autoload": {
         "psr-4": {
-            "php-snmp\\": "src/"
+            "Jorgelima\\": "src/"
         }
     }
 }
