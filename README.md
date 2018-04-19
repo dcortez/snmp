@@ -12,11 +12,17 @@ For RedHat/CentOS 6, 7
 [root@centos ~]# yum install net-snmp-utils
 ```
 
+For Debian/Ubuntu
+
+```shell
+[root@debian ~]# apt-get install snmp
+```
+
 Installation with Composer
 --------------------------
 
 ```shell
-$ composer require jorgelima/snmp
+$ composer require dcortez/snmp
 ```
 
 Usage
@@ -28,9 +34,9 @@ Example php file.
 // test-snmp.php
 require 'vendor/autoload.php';
 
-use Jorgelima\Snmp;
+use Dcortez\Snmp;
 
-$snmp = new Snmp('127.0.0.1', 'public');
+$snmp = new Snmp('127.0.0.1', 'public', '2c', '5'); // <ip>, <community>, <snmp_version>, <timeout>
 print_r($snmp->get('.1.3.6.1.2.1.1.1.0'));
 ```
 
