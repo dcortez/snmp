@@ -1,5 +1,5 @@
 {
-    "name": "jorgelima/snmp",
+    "name": "dcortez/snmp",
     "description": "PHP Class for net-snmp commands",
     "type": "library",
     "license": "MIT",
@@ -11,12 +11,16 @@
         {
             "name": "Jorge Lima",
             "email": "jorge@creativeconcept.com.br"
+        },
+        {
+            "name": "Dustin Cortez",
+            "email": "dustin@atomicyeti.com"
         }
     ],
     "require": {},
     "autoload": {
         "psr-4": {
-            "Jorgelima\\": "src/"
+            "dcortez\\": "src/"
         }
     }
 }
