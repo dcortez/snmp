@@ -31,6 +31,11 @@ class Snmp {
      * SNMP Version
      */
     protected $version;
+    
+    /**
+     * SNMP Timeout
+     */
+    protected $timeout;
 
     /**
      * Net-SNMP Command Output Options
@@ -57,11 +62,12 @@ class Snmp {
     /*
      * Initial Variables
      */
-    public function __construct($hostname, $community, $version='1') {
+    public function __construct($hostname, $community, $version='1', $timeout=30) {
 
         $this->hostname     = $hostname;
         $this->community    = $community;
-        $this->version      = $version;
+        $this->version      = (in_array($version, ['1', '2c'])) ? $version : 1;
+        $this->timeout      = $timeout;
     }
 
     /*
@@ -75,6 +81,7 @@ class Snmp {
         $snmpget = 'snmpget ' . escapeshellarg($this->hostname)
                      . ' -c ' . escapeshellarg($this->community)
                      . ' -v ' . escapeshellarg($this->version)
+                     . ' -t ' . escapeshellarg($this->timeout)
                      . ' -O ' . escapeshellarg($this->output_options);
 
         // chunk to limit max oids to exec snmpget at the same time
@@ -99,6 +106,7 @@ class Snmp {
                      . ' -v ' . escapeshellarg($this->version)
                      . ' -O ' . escapeshellarg($this->output_options)
                      . ' -c ' . escapeshellarg($this->community)
+                     . ' -t ' . escapeshellarg($this->timeout)
                      . ' '.escapeshellarg($this->hostname);
 
         // chunk to limit max oids to exec snmpget at the same time
@@ -122,6 +130,7 @@ class Snmp {
         $snmpgetnext = 'snmpgetnext ' . escapeshellarg($this->hostname)
                      . ' -c ' . escapeshellarg($this->community)
                      . ' -v ' . escapeshellarg($this->version)
+                     . ' -t ' . escapeshellarg($this->timeout)
                      . ' -O ' . escapeshellarg($this->output_options);
 
         // chunk to limit max oids to exec snmpgetnext at the same time
@@ -144,6 +153,7 @@ class Snmp {
         $snmpwalk = 'snmpwalk ' . escapeshellarg($this->hostname)
                        . ' -c ' . escapeshellarg($this->community)
                        . ' -v ' . escapeshellarg($this->version)
+                       . ' -t ' . escapeshellarg($this->timeout)
                        . ' -O ' . escapeshellarg($this->output_options)
                        . ' -Cc ';
 
