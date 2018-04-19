@@ -1,15 +1,16 @@
 <?php
 /**
- * jorgelima/snmp
+ * dcortez/snmp
  *
  * @author    nelisys <nelisys@users.noreply.github.com>
  * @author    Jorge Lima <jorge@creativeconcept.com.br>
+ * @author    Dustin Cortez <dustin@atomicyeti.com>
  * @copyright 2015 nelisys
  * @license   https://opensource.org/licenses/MIT
- * @link      https://github.com/nelisys/snmp
+ * @link      https://github.com/dcortez/snmp
  */
 
-namespace Jorgelima;
+namespace dcortez;
 
 /**
  * PHP Class for net-snmp commands
